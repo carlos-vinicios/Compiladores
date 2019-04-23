@@ -11,7 +11,7 @@
 
 /* states in scanner DFA */
 typedef enum
-   { START,INASSIGN,INCOMMENT,INNUM,INID,DONE }
+   { START,INASSIGN,INCOMMENT,INNUM,INID,INIDAUX,DONE }
    StateType;
 
 /* lexeme of identifier or reserved word */
@@ -56,9 +56,9 @@ static struct
     { char* str;
       TokenType tok;
     } reservedWords[MAXRESERVED]
-   = {{"if",IF},{"then",THEN},{"else",ELSE},{"end",END},
+   = {{"if",IF},{"then",THEN},{"else",ELSE},{"endif",ENDIF},
       {"repeat",REPEAT},{"until",UNTIL},{"read",READ},
-      {"write",WRITE}};
+      {"write",WRITE},{"while",WHILE},{"endwhile",ENDWHILE}}; //Add while e endwhile
 
 /* lookup an identifier to see if it is a reserved word */
 /* uses linear search */
@@ -94,6 +94,8 @@ TokenType getToken(void)
            state = INNUM;
          else if (isalpha(c))
            state = INID;
+         else if (c=='_') //Adicionado a condição para novo estado
+            state = INIDAUX;
          else if (c == ':')
            state = INASSIGN;
          else if ((c == ' ') || (c == '\t') || (c == '\n'))
@@ -158,7 +160,7 @@ TokenType getToken(void)
          { /* backup in the input */
            ungetNextChar();
            save = FALSE;
-           currentToken = DDOT;
+           currentToken = ERROR;
          }
          break;
        case INNUM:
@@ -170,9 +172,23 @@ TokenType getToken(void)
            currentToken = NUM;
          }
          break;
-       case INID:
-         if (!isalpha(c))
+        /* Modificacao no formato dos identificadores : l( l + d + _)* + _ (l + d)^+( l + d + _)*
+         E foi adicionado o novo case do estado INIDAUX */
+        case INIDAUX:
+         if(isalnum(c))
+           state = INID;
+         else
+         {
+           ungetNextChar();
+           save = FALSE;
+           state = DONE;
+           currentToken = ERROR;
+         }
+         break;
+        case INID:
+        if (!(isalnum(c) || c == '_'))
          { /* backup in the input */
+
            ungetNextChar();
            save = FALSE;
            state = DONE;
