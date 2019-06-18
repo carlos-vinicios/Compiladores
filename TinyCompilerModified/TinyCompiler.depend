@@ -1,0 +1,92 @@
+# depslib dependency file v1.0
+1556027059 source:c:\users\desktop-lappai\documents\github\compiladores\tinycompiler\main.c
+	"globals.h"
+	"util.h"
+	"scan.h"
+	"parse.h"
+	"analyze.h"
+	"cgen.h"
+
+1556030176 c:\users\desktop-lappai\documents\github\compiladores\tinycompiler\globals.h
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<string.h>
+
+1556026844 c:\users\desktop-lappai\documents\github\compiladores\tinycompiler\util.h
+
+1556026844 c:\users\desktop-lappai\documents\github\compiladores\tinycompiler\scan.h
+
+1556026844 source:c:\users\desktop-lappai\documents\github\compiladores\tinycompiler\util.c
+	"globals.h"
+	"util.h"
+
+1556029984 source:c:\users\desktop-lappai\documents\github\compiladores\tinycompiler\scan.c
+	"globals.h"
+	"util.h"
+	"scan.h"
+
+1558823051 source:c:\users\desktop\documents\github\compiladores\tinycompilermodified\code.c
+	"globals.h"
+	"code.h"
+
+1559063056 c:\users\desktop\documents\github\compiladores\tinycompilermodified\globals.h
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<string.h>
+
+1558823051 c:\users\desktop\documents\github\compiladores\tinycompilermodified\code.h
+
+1559063465 source:c:\users\desktop\documents\github\compiladores\tinycompilermodified\parse.c
+	"globals.h"
+	"util.h"
+	"scan.h"
+	"parse.h"
+
+1558823051 c:\users\desktop\documents\github\compiladores\tinycompilermodified\util.h
+
+1558823051 c:\users\desktop\documents\github\compiladores\tinycompilermodified\scan.h
+
+1558823051 c:\users\desktop\documents\github\compiladores\tinycompilermodified\parse.h
+
+1560818526 source:c:\users\desktop\documents\github\compiladores\tinycompilermodified\main.c
+	"globals.h"
+	"util.h"
+	"scan.h"
+	"parse.h"
+	"analyze.h"
+	"cgen.h"
+
+1556794757 c:\users\desktop\documents\github\compiladores\tinycompilermodified\analyze.h
+
+1556794757 c:\users\desktop\documents\github\compiladores\tinycompilermodified\cgen.h
+
+1558823051 source:c:\users\desktop\documents\github\compiladores\tinycompilermodified\scan.c
+	"globals.h"
+	"util.h"
+	"scan.h"
+
+1559063506 source:c:\users\desktop\documents\github\compiladores\tinycompilermodified\util.c
+	"globals.h"
+	"util.h"
+
+1556794757 source:c:\users\desktop\documents\github\compiladores\tinycompilermodified\analyze.c
+	"globals.h"
+	"symtab.h"
+	"analyze.h"
+
+1556794757 c:\users\desktop\documents\github\compiladores\tinycompilermodified\symtab.h
+
+1560825512 source:c:\users\desktop\documents\github\compiladores\tinycompilermodified\cgen.c
+	"globals.h"
+	"symtab.h"
+	"code.h"
+	"cgen.h"
+
+1556794757 source:c:\users\desktop\documents\github\compiladores\tinycompilermodified\symtab.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"symtab.h"
+

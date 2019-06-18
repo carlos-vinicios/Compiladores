@@ -21,9 +21,12 @@ void printToken( TokenType token, const char* tokenString )
     case REPEAT:
     case UNTIL:
     case READ:
+    case SWITCH:
+    case CASE:
+    case ENDSWITCH:
+    case WHILE:
     case WRITE:
-    case WHILE: //add
-    case ENDWHILE: //add
+    case ENDWHILE:
       fprintf(listing,
          "reserved word: %s\n",tokenString);
       break;
@@ -36,6 +39,7 @@ void printToken( TokenType token, const char* tokenString )
     case PLUS: fprintf(listing,"+\n"); break;
     case MINUS: fprintf(listing,"-\n"); break;
     case TIMES: fprintf(listing,"*\n"); break;
+    case DDOT: fprintf(listing,":\n"); break;
     case OVER: fprintf(listing,"/\n"); break;
     case ENDFILE: fprintf(listing,"EOF\n"); break;
     case NUM:
@@ -58,6 +62,7 @@ void printToken( TokenType token, const char* tokenString )
 /* Function newStmtNode creates a new statement
  * node for syntax tree construction
  */
+/* 语法树 */
 TreeNode * newStmtNode(StmtKind kind)
 { TreeNode * t = (TreeNode *) malloc(sizeof(TreeNode));
   int i;
@@ -76,6 +81,7 @@ TreeNode * newStmtNode(StmtKind kind)
 /* Function newExpNode creates a new expression
  * node for syntax tree construction
  */
+/* 语义树 */
 TreeNode * newExpNode(ExpKind kind)
 { TreeNode * t = (TreeNode *) malloc(sizeof(TreeNode));
   int i;
@@ -100,7 +106,7 @@ char * copyString(char * s)
   char * t;
   if (s==NULL) return NULL;
   n = strlen(s)+1;
-  t = (char*)malloc(n); //   t = malloc(n);
+  t = malloc(n);
   if (t==NULL)
     fprintf(listing,"Out of memory error at line %d\n",lineno);
   else strcpy(t,s);
@@ -110,7 +116,7 @@ char * copyString(char * s)
 /* Variable indentno is used by printTree to
  * store current number of spaces to indent
  */
-static int indentno = 0; //static indentno = 0;
+static int indentno = 0;
 
 /* macros to increase/decrease indentation */
 #define INDENT indentno+=2
@@ -139,9 +145,6 @@ void printTree( TreeNode * tree )
         case RepeatK:
           fprintf(listing,"Repeat\n");
           break;
-        case WhileK: // Add print While na tree
-          fprintf(listing,"While\n");
-          break;
         case AssignK:
           fprintf(listing,"Assign to: %s\n",tree->attr.name);
           break;
@@ -150,6 +153,15 @@ void printTree( TreeNode * tree )
           break;
         case WriteK:
           fprintf(listing,"Write\n");
+          break;
+        case SwitchK:
+          fprintf(listing,"Switch\n");
+          break;
+        case CaseK:
+          fprintf(listing,"Case\n");
+          break;
+        case WhileK:  //impressao de arvore sintatica do estrutura while
+          fprintf(listing,"While\n");
           break;
         default:
           fprintf(listing,"Unknown ExpNode kind\n");

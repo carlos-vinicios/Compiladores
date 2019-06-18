@@ -31,9 +31,38 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="analyze.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="analyze.h" />
+		<Unit filename="cgen.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="cgen.h" />
+		<Unit filename="code.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="code.h" />
+		<Unit filename="globals.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="parse.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="parse.h" />
+		<Unit filename="scan.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="scan.h" />
+		<Unit filename="symtab.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="symtab.h" />
+		<Unit filename="util.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="util.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

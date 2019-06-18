@@ -11,7 +11,7 @@
 
 /* states in scanner DFA */
 typedef enum
-   { START,INASSIGN,INCOMMENT,INNUM,INID,INIDAUX,DONE }
+   { START,INASSIGN,INCOMMENT,INNUM,INID,DONE }
    StateType;
 
 /* lexeme of identifier or reserved word */
@@ -58,7 +58,7 @@ static struct
     } reservedWords[MAXRESERVED]
    = {{"if",IF},{"then",THEN},{"else",ELSE},{"endif",ENDIF},
       {"repeat",REPEAT},{"until",UNTIL},{"read",READ},
-      {"write",WRITE},{"while",WHILE},{"endwhile",ENDWHILE}}; //Add while e endwhile
+      {"write",WRITE}, {"while", WHILE}, {"endwhile", ENDWHILE}};
 
 /* lookup an identifier to see if it is a reserved word */
 /* uses linear search */
@@ -85,29 +85,26 @@ TokenType getToken(void)
    StateType state = START;
    /* flag to indicate save to tokenString */
    int save;
-   while (state != DONE)
-   { int c = getNextChar();
+   while (state != DONE){
+     int c = getNextChar();
      save = TRUE;
-     switch (state)
-     { case START:
+     switch (state){
+       case START:
          if (isdigit(c))
            state = INNUM;
          else if (isalpha(c))
            state = INID;
-         else if (c=='_') //Adicionado a condição para novo estado
-            state = INIDAUX;
          else if (c == ':')
            state = INASSIGN;
          else if ((c == ' ') || (c == '\t') || (c == '\n'))
            save = FALSE;
-         else if (c == '{')
-         { save = FALSE;
+         else if (c == '{'){
+           save = FALSE;
            state = INCOMMENT;
-         }
-         else
-         { state = DONE;
-           switch (c)
-           { case EOF:
+         }else{
+           state = DONE;
+           switch (c){
+             case EOF:
                save = FALSE;
                currentToken = ENDFILE;
                break;
@@ -146,49 +143,34 @@ TokenType getToken(void)
          break;
        case INCOMMENT:
          save = FALSE;
-         if (c == EOF)
-         { state = DONE;
+         if (c == EOF){
+           state = DONE;
            currentToken = ENDFILE;
-         }
-         else if (c == '}') state = START;
+         }else if (c == '}')  state = START;
          break;
        case INASSIGN:
          state = DONE;
          if (c == '=')
            currentToken = ASSIGN;
-         else
-         { /* backup in the input */
+         else{
+           /* backup in the input */
            ungetNextChar();
            save = FALSE;
-           currentToken = ERROR;
+           currentToken = DDOT;
          }
          break;
        case INNUM:
-         if (!isdigit(c))
-         { /* backup in the input */
+         if (!isdigit(c)){
+           /* backup in the input */
            ungetNextChar();
            save = FALSE;
            state = DONE;
            currentToken = NUM;
          }
          break;
-        /* Modificacao no formato dos identificadores : l( l + d + _)* + _ (l + d)^+( l + d + _)*
-         E foi adicionado o novo case do estado INIDAUX */
-        case INIDAUX:
-         if(isalnum(c))
-           state = INID;
-         else
-         {
-           ungetNextChar();
-           save = FALSE;
-           state = DONE;
-           currentToken = ERROR;
-         }
-         break;
-        case INID:
-        if (!(isalnum(c) || c == '_'))
-         { /* backup in the input */
-
+       case INID:
+         if (!isalpha(c) && c!='_' && !isdigit(c)){
+           /* backup in the input */
            ungetNextChar();
            save = FALSE;
            state = DONE;
@@ -204,8 +186,8 @@ TokenType getToken(void)
      }
      if ((save) && (tokenStringIndex <= MAXTOKENLEN))
        tokenString[tokenStringIndex++] = (char) c;
-     if (state == DONE)
-     { tokenString[tokenStringIndex] = '\0';
+     if (state == DONE){
+       tokenString[tokenStringIndex] = '\0';
        if (currentToken == ID)
          currentToken = reservedLookup(tokenString);
      }

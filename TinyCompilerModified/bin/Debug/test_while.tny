@@ -1,0 +1,8 @@
+read x;
+a := 0;
+sum := 0;
+while a < x
+    sum := sum + 1;
+endwhile
+
+write sum;
